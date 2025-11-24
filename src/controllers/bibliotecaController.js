@@ -121,7 +121,7 @@ export const atualizar = async (req, res) => {
     const livroAtualizado = await bibliotecaModel.atualizar(id, dados)
 
     return res.status(200).json({
-        mensagem: 'Comida atualizada com sucesso!',
+        mensagem: 'livro atualizado com sucesso!',
         livros: livroAtualizado
     })
 
