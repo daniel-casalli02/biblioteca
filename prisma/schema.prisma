@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Exemplo de modelo
+model biblioteca {
+  id            Int      @id @default(autoincrement())
+  autor         String   @unique
+  titulo        String?
+  isnb          Float
+  categoria     String
+  anoPublicacao Float
+  disponivel    String
+  editora       String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("biblioteca")
+}
