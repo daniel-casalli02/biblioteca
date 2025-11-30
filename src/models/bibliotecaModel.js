@@ -7,6 +7,30 @@ export const encontreTodos = async () => {
     });
 }
 
+export const categoria = async (categoria) => {
+    return await prisma.biblioteca.findMany({
+        where: { categoria: String(categoria) }
+    })
+}
+
+export const autor = async (autor) => {
+    return await prisma.biblioteca.findMany({
+        where: { autor: String(autor) }
+    })
+}
+
+export const anoPublicacao = async (anoPublicacao) =>{
+    return await prisma.biblioteca.findMany({
+        where: { anoPublicacao: Number(anoPublicacao) }
+    })
+}
+
+export const disponivel = async (disponivel) => {
+    return await prisma.biblioteca.findMany({
+        where: { disponivel: true(disponivel) }
+    })
+}
+
 export const encontreUm = async (id) => {
     return await prisma.biblioteca.findUnique({
         where: { id: Number(id) }

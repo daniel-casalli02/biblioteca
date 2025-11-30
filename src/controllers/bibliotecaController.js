@@ -26,6 +26,118 @@ export const listarTodos = async (req, res) => {
     }
 }
 
+export const categoria = async (req, res) => {
+    try {
+        const categoria = (req.params.categoria);
+        const Livros = await bibliotecaModel.categoria(categoria);
+
+        if(!Livros){
+            return res.status(404).json({
+                erro: "Livro não encontrado",
+                mensagem: 'Verifique o id do Livros',
+                categoria: categoria
+            })
+        }
+
+        res.status(200).json({
+            message: 'Livro encontrado',
+            Livros
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            erro: 'Erro interno de servidor',
+            detalhes: error.message,
+            status: 500
+        })
+    }
+}
+
+export const autor = async (req, res) => {
+     try {
+        const autor = (req.params.autor);
+        const Livros = await bibliotecaModel.autor(autor);
+
+        if(!Livros){
+            return res.status(404).json({
+                erro: "Livro não encontrado",
+                mensagem: 'Verifique o id do Livros',
+                id: id
+            })
+        }
+
+        res.status(200).json({
+            message: 'Livro encontrado',
+            Livros
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            erro: 'Erro interno de servidor',
+            detalhes: error.message,
+            status: 500
+        })
+    }
+}
+
+export const anoPublicacao = async (req, res) => {
+    try {
+        const anoPublicacao = (req.params.anoPublicacao);
+        const Livros = await bibliotecaModel.anoPublicacao(anoPublicacao);
+
+        
+
+        if(!Livros || anoPublicacao < 2020 || anoPublicacao < 2025){
+            return res.status(404).json({
+                erro: "Livro não encontrado",
+                mensagem: 'Verifique o id do Livros',
+                anoPublicacao: anoPublicacao
+            })
+        }
+
+        res.status(200).json({
+            message: 'Livro encontrado',
+            Livros
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            erro: 'Erro interno de servidor',
+            detalhes: error.message,
+            status: 500
+        })
+    }
+}
+
+export const disponivel = async (req, res) => {
+    try {
+        const disponivel = (req.params.disponivel);
+        const Livros = await bibliotecaModel.disponivel(disponivel);
+
+        
+
+        if(!Livros || disponivel == false){
+            return res.status(404).json({
+                erro: "Livro não encontrado",
+                mensagem: 'Verifique o id do Livros',
+                disponivel: disponivel
+            })
+        }
+
+        res.status(200).json({
+            message: 'Livro encontrado',
+            Livros
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            erro: 'Erro interno de servidor',
+            detalhes: error.message,
+            status: 500
+        })
+    }
+}
+
 export const listarUm = async (req, res) => {
     try {
         const id = parseInt(req.params.id);
@@ -60,7 +172,19 @@ export const criar = async (req, res) => {
         const dado = { id, titulo, autor, isbn, categoria, anoPublicacao, disponivel, editora }
 
     const novoLivro = await bibliotecaModel.criar(req.body)
+
+    if(isbn.length < 10 || isbn.length > 13){
+        res.status(400).json({
+            message:"isbn deve ter entre 10 e 13 digitos"
+        })
+    }
     
+    if(anoPublicacao > 2025){
+        res.status(400).json({
+            message:"o ano de publicação nao pode ser maior que o atual"
+        })
+    }
+
     res.status(201).json({
         mensagem: 'livro criado com sucesso!',
         Livros: novoLivro
