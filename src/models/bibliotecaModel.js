@@ -27,7 +27,7 @@ export const anoPublicacao = async (anoPublicacao) =>{
 
 export const disponivel = async (disponivel) => {
     return await prisma.biblioteca.findMany({
-        where: { disponivel: true(disponivel) }
+        where: { disponivel: true }
     })
 }
 

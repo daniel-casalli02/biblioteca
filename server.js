@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import bibliotecaRoute from '../prova/src/routes/bibliotecaRoutes.js'
+import bibliotecaRoute from './src/routes/bibliotecaRoutes.js'
 
 const app = express();
 
